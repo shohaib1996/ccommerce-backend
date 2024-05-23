@@ -1,5 +1,3 @@
-// services/order.service.js
-import { response } from "express";
 import OrderModel from "../order.model";
 import ProductModel from "../product.model";
 import { Order } from "./order.interface";

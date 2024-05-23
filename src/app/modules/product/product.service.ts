@@ -28,11 +28,8 @@ const updateProductInDB = async (
 };
 
 const deleteProductFromDB = async (id: string) => {
-  const result = await ProductModel.findByIdAndDelete(
-    { _id: id },
-    { isDeleted: true }
-  );
-  return result;
+  await ProductModel.findByIdAndDelete(id);
+  return null;
 };
 
 const searchProductsByName = async (searchTerm: string) => {
