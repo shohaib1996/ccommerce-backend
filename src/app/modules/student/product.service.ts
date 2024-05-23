@@ -17,6 +17,16 @@ const getSingleProductFromDB = async (id: string) => {
   return result;
 };
 
+const updateProductInDB = async (
+  id: string,
+  productUpdates: Partial<Product>
+) => {
+  const result = await ProductModel.findByIdAndUpdate(id, productUpdates, {
+    new: true,
+  });
+  return result;
+};
+
 const deleteProductFromDB = async (id: string) => {
   const result = await ProductModel.updateOne({ _id: id }, { isDeleted: true });
   return result;
@@ -27,4 +37,5 @@ export const ProductService = {
   getAllProductsFromDB,
   getSingleProductFromDB,
   deleteProductFromDB,
+  updateProductInDB,
 };

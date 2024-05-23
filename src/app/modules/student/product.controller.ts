@@ -61,6 +61,35 @@ const getSingleProduct = async (req: Request, res: Response) => {
   }
 };
 
+const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const productUpdates = req.body;
+
+    // Optional: Validate productUpdates against the schema if you want strict updates
+    const zodParseData = productValidationSchema
+      .partial()
+      .parse(productUpdates);
+
+    const result = await ProductService.updateProductInDB(
+      productId,
+      zodParseData
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Product updated successfully!",
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while updating the Product",
+      error: err.message,
+    });
+  }
+};
+
 const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { studentId } = req.params;
@@ -70,7 +99,7 @@ const deleteProduct = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: "Product deleted successfully",
-      data: result,
+      data: null,
     });
   } catch (err: any) {
     res.status(500).json({
@@ -86,4 +115,5 @@ export const ProductControllers = {
   getAllProducts,
   getSingleProduct,
   deleteProduct,
+  updateProduct,
 };

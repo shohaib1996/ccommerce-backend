@@ -1,37 +1,43 @@
 import { Schema, model } from "mongoose";
 
-const variantSchema = new Schema({
-  type: {
-    type: String,
-    required: [true, "Variant type is required"],
-    trim: true,
-    enum: {
-      values: ["color", "size", "style"],
-      message: "Variant type `{VALUE}` is not supported",
+const variantSchema = new Schema(
+  {
+    type: {
+      type: String,
+      required: [true, "Variant type is required"],
+      trim: true,
+      enum: {
+        values: ["color", "size", "style"],
+        message: "Variant type `{VALUE}` is not supported",
+      },
+    },
+    value: {
+      type: String,
+      required: [true, "Variant value is required"],
+      trim: true,
     },
   },
-  value: {
-    type: String,
-    required: [true, "Variant value is required"],
-    trim: true,
-  },
-});
+  { _id: false }
+);
 
-const inventorySchema = new Schema({
-  quantity: {
-    type: Number,
-    required: [true, "Inventory quantity is required"],
-    min: [0, "Inventory quantity cannot be negative"],
-    validate: {
-      validator: Number.isInteger,
-      message: "Inventory quantity must be an integer",
+const inventorySchema = new Schema(
+  {
+    quantity: {
+      type: Number,
+      required: [true, "Inventory quantity is required"],
+      min: [0, "Inventory quantity cannot be negative"],
+      validate: {
+        validator: Number.isInteger,
+        message: "Inventory quantity must be an integer",
+      },
+    },
+    inStock: {
+      type: Boolean,
+      required: [true, "Stock status is required"],
     },
   },
-  inStock: {
-    type: Boolean,
-    required: [true, "Stock status is required"],
-  },
-});
+  { _id: false }
+);
 
 const productSchema = new Schema({
   name: {
@@ -57,10 +63,6 @@ const productSchema = new Schema({
     type: String,
     required: [true, "Product category is required"],
     trim: true,
-    enum: {
-      values: ["Electronics", "Clothing", "Books", "Home & Garden", "Other"],
-      message: "Category `{VALUE}` is not supported",
-    },
   },
   tags: [
     {
