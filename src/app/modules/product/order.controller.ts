@@ -1,13 +1,16 @@
 // controllers/order.controller.js
 import { Request, Response } from "express";
 import { OrderService } from "./order.service";
+import orderValidationSchema from "./order.validation";
 
 const createOrder = async (req: Request, res: Response) => {
   try {
     const { email, productId, price, quantity } = req.body;
     const orderData = { email, productId, price, quantity };
 
-    const result = await OrderService.createOrderInDB(orderData);
+    const zodParseData = orderValidationSchema.parse(orderData);
+
+    const result = await OrderService.createOrderInDB(zodParseData);
 
     res.status(201).json({
       success: true,
