@@ -25,7 +25,14 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const result = await ProductService.getAllProductsFromDB();
+    const { searchTerm } = req.query;
+    let result;
+
+    if (searchTerm) {
+      result = await ProductService.searchProductsByName(searchTerm as string);
+    } else {
+      result = await ProductService.getAllProductsFromDB();
+    }
 
     res.status(200).json({
       success: true,
@@ -35,8 +42,8 @@ const getAllProducts = async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: err.message || "something went wrong",
-      error: err,
+      message: "An error occurred while fetching the products",
+      error: err.message,
     });
   }
 };
@@ -92,9 +99,9 @@ const updateProduct = async (req: Request, res: Response) => {
 
 const deleteProduct = async (req: Request, res: Response) => {
   try {
-    const { studentId } = req.params;
+    const { productId } = req.params;
 
-    const result = await ProductService.deleteProductFromDB(studentId);
+    const result = await ProductService.deleteProductFromDB(productId);
 
     res.status(200).json({
       success: true,

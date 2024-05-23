@@ -6,10 +6,6 @@ const variantSchema = new Schema(
       type: String,
       required: [true, "Variant type is required"],
       trim: true,
-      enum: {
-        values: ["color", "size", "style"],
-        message: "Variant type `{VALUE}` is not supported",
-      },
     },
     value: {
       type: String,

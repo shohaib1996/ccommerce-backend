@@ -1,9 +1,12 @@
 import { z } from "zod";
 
 const variantSchema = z.object({
-  type: z.enum(["color", "size", "style"], {
-    errorMap: () => ({ message: "Variant type is not supported" }),
-  }),
+  type: z
+    .string({
+      required_error: "Variant type is required",
+      invalid_type_error: "Variant type must be a string",
+    })
+    .trim(),
   value: z
     .string({
       required_error: "Variant value is required",
