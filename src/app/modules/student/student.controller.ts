@@ -1,15 +1,13 @@
 import { Request, Response } from "express";
-import { StudentServices } from "./student.service";
-// import studentValidationSchema from "./student.validation";
-import { z } from "zod";
-import studentValidationSchema from "./student.validation";
+import { ProductService } from "./product.service";
+import productValidationSchema from "./product.validation";
 
-const createStudent = async (req: Request, res: Response) => {
+const createProduct = async (req: Request, res: Response) => {
   try {
-    const studentData = req.body;
-    const zodParseData = studentValidationSchema.parse(studentData);
+    const productData = req.body;
+    const zodParseData = productValidationSchema.parse(productData);
 
-    const result = await StudentServices.createStudentIntoDB(zodParseData);
+    const result = await ProductService.createProductIntoDB(zodParseData);
 
     res.status(200).json({
       success: true,
@@ -25,9 +23,9 @@ const createStudent = async (req: Request, res: Response) => {
   }
 };
 
-const getAllStudents = async (req: Request, res: Response) => {
+const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const result = await StudentServices.getAllStudentsFromDB();
+    const result = await ProductService.getAllProductsFromDB();
 
     res.status(200).json({
       success: true,
@@ -43,11 +41,11 @@ const getAllStudents = async (req: Request, res: Response) => {
   }
 };
 
-const getSingleStudent = async (req: Request, res: Response) => {
+const getSingleProduct = async (req: Request, res: Response) => {
   try {
     const { studentId } = req.params;
 
-    const result = await StudentServices.getSingleStudentFromDB(studentId);
+    const result = await ProductService.getSingleProductFromDB(studentId);
 
     res.status(200).json({
       success: true,
@@ -63,11 +61,11 @@ const getSingleStudent = async (req: Request, res: Response) => {
   }
 };
 
-const deleteStudent = async (req: Request, res: Response) => {
+const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { studentId } = req.params;
 
-    const result = await StudentServices.deleteStudentFromDB(studentId);
+    const result = await ProductService.deleteProductFromDB(studentId);
 
     res.status(200).json({
       success: true,
@@ -84,8 +82,8 @@ const deleteStudent = async (req: Request, res: Response) => {
 };
 
 export const StudentControllers = {
-  createStudent,
-  getAllStudents,
-  getSingleStudent,
-  deleteStudent,
+  createProduct,
+  getAllProducts,
+  getSingleProduct,
+  deleteProduct,
 };
