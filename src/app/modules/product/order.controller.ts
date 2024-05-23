@@ -23,6 +23,32 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
+const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.query; // Extract the email query parameter if available
+    let orders;
+
+    if (email) {
+      orders = await OrderService.getOrdersByEmail(email as string);
+    } else {
+      orders = await OrderService.getAllOrdersFromDB();
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Orders fetched successfully!",
+      data: orders,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching all orders",
+      error: err.message,
+    });
+  }
+};
+
 export const OrderController = {
   createOrder,
+  getAllOrders,
 };
