@@ -7,8 +7,8 @@ router.post("/products", ProductControllers.createProduct);
 
 router.get("/products", ProductControllers.getAllProducts);
 
-router.get("products/:productID", ProductControllers.getSingleProduct);
+router.get("/products/:productId", ProductControllers.getSingleProduct);
 
-router.delete("/:productID", ProductControllers.deleteProduct);
+router.delete("/:productId", ProductControllers.deleteProduct);
 
 export const ProductRoutes = router;
