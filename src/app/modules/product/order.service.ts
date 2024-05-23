@@ -26,6 +26,14 @@ const getAllOrdersFromDB = async () => {
   const orders = await OrderModel.find({});
   return orders;
 };
+const getSingleOrderFromDB = async (id: string) => {
+  const order = await OrderModel.findById(id);
+  if (!order) {
+    throw new Error("Order not found");
+  }
+  return order;
+};
+
 const getOrdersByEmail = async (email: string) => {
   const orders = await OrderModel.find({ email: email });
   return orders;
@@ -35,4 +43,5 @@ export const OrderService = {
   createOrderInDB,
   getAllOrdersFromDB,
   getOrdersByEmail,
+  getSingleOrderFromDB,
 };
