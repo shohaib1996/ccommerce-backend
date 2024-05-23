@@ -11,13 +11,13 @@ const createProduct = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: "Student is created successfully",
+      message: "Product created successfully!",
       data: result,
     });
   } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: "An error occurred while creating the student",
+      message: "An error occurred while creating the Product",
       error: err.message,
     });
   }
@@ -29,7 +29,7 @@ const getAllProducts = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: "Students are retrieved successfully",
+      message: "Products fetched successfully!",
       data: result,
     });
   } catch (err: any) {
@@ -43,13 +43,13 @@ const getAllProducts = async (req: Request, res: Response) => {
 
 const getSingleProduct = async (req: Request, res: Response) => {
   try {
-    const { studentId } = req.params;
+    const { productId } = req.params;
 
-    const result = await ProductService.getSingleProductFromDB(studentId);
+    const result = await ProductService.getSingleProductFromDB(productId);
 
     res.status(200).json({
       success: true,
-      message: "Student is retrieved successfully",
+      message: "Products fetched successfully!",
       data: result,
     });
   } catch (err: any) {
@@ -81,7 +81,7 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const StudentControllers = {
+export const ProductControllers = {
   createProduct,
   getAllProducts,
   getSingleProduct,
