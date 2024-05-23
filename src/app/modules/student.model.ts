@@ -9,7 +9,7 @@ import {
   // StudentMethods,
   StudentModel,
   TUserName,
-} from "./student/student.interface";
+} from "./student/product.interface";
 import config from "../config";
 
 const userNameSchema = new Schema<TUserName>({
