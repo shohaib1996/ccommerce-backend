@@ -17,15 +17,14 @@ const createOrder = async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: "An error occurred while creating the order",
-      error: err.message,
+      message: "Insufficient quantity available in inventory",
     });
   }
 };
 
 const getAllOrders = async (req: Request, res: Response) => {
   try {
-    const { email } = req.query; // Extract the email query parameter if available
+    const { email } = req.query;
     let orders;
 
     if (email) {
